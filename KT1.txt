@@ -1,0 +1,137 @@
+Test 1
+class User{
+    name: string;
+    login: string;
+
+    constructor(name: string, login: string){
+        this.name = name;
+        this.login = login;
+    }
+
+    showInfo(){
+        console.log(`Name: ${this.name}, Login: ${this.login}`);
+    }
+}
+
+class SuperUser extends User{
+  role: string;
+
+  constructor(name: string, login: string, role: string){
+    super(name, login);
+    this.role = role;
+  }
+}
+
+const user1 = new User('Paul McCartney', 'paul', '1234', 3);
+const user2 = new User('George Harrison', 'george', '5678', 2);
+const user3 = new User('Richard Starkey', 'ringo', '8523', 3);
+const admin = new SuperUser('John Lennon', 'john', '0000', 'admin', 5);
+
+user1.showInfo();
+admin.showInfo();
+Test2
+class User{
+    static count: number = 3;
+}
+
+class SuperUser{
+    static count: number = 1;
+}
+
+const users = User.count;
+const admins = SuperUser.count;
+
+console.log(`Всего обычных пользователей: ${users}`);
+console.log(`Всего супер-пользователей: ${admins}`);
+Test3
+class User{
+    name: string;
+    constructor(name: string){
+        this.name = name;
+    }
+
+    It(other: User): boolean{
+        return this.name < other.name;
+    }
+
+    gt(other: User): boolean{
+        return this.name > other.name;
+    }
+
+    eq(other: User): boolean{
+        return this.name === other.name;
+    }
+}
+
+class Admin extends User{
+    constructor(name: string){
+        super(name);
+    }
+}
+const user1 = new User("Alice");
+const user2 = new User("Bob");
+const user3 = new User("Alice");
+const admin = new Admin("Admin");
+
+console.log(user1.It(user2));
+console.log(admin.gt(user3));
+console.log(user1.eq(user3));
+Test4
+class User{
+    private _name:string;
+    private _password:string;
+    private _login:string;
+
+    get name(): string{
+        return this._name;
+    }
+
+    set name(newName:string){
+        this._name=newName.replace('Star', 'Starr');
+    }
+
+    get password():string{
+        return '****';
+    }
+
+    get login():string{
+        return this._login;
+    }
+
+    set login (newLogin:string){
+        if(this._login){
+            console.log("Невозможно изменить логин!");
+        } else{
+            this._login = newLogin;
+        }
+    }   
+}
+
+class Admin extends User{
+    private _grade:number;
+
+    get grade(): string{
+        return "Неизвестное свойство grade";
+    }
+
+    set grade(newGrade:number){
+        console.log("Неизвестное свойство grade");
+    }
+}
+
+const user1 = new User();
+const user2 = new User();
+const user3 = new User();
+const admin = new Admin();
+
+user3.name = 'Ringo Star';
+user1.password = 'Pa$$w0rd';
+
+console.log(user3.name);
+console.log(user2.password);
+console.log(user2.login);
+
+user2.login = 'geo';
+
+console.log(user3.grade);
+admin.grade = 10;
